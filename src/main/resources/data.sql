@@ -1,0 +1,2 @@
+# INSERT INTO account (role, username, password, is_deleted, created_at, updated_at) VALUE ('USER', 'a', '$2a$10$kwoHJq/b3xJ8bqVQH2MfreWtR6ngAhe03g6bFgF7Ac/jRIsB40YDq', 0, NOW(), NOW());
+# INSERT INTO account (role, username, password, is_deleted, created_at, updated_at) VALUE ('USER', 'kangminsung', '$2a$10$/Qy2oBA3eE7fH65aDiQEle2Txo9g6G9UELh.Vi88wMzCh9VqaEafW', 0, NOW(), NOW());

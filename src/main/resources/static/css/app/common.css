@@ -1,0 +1,12 @@
+.hidden { display: none }
+input { height: 22px!important; padding: 0; border: 1px solid black; box-sizing: border-box }
+select { background-color: buttonface }
+div.title_area { display: flex; align-items: center }
+div.title_area p { font-weight: bold }
+div.title_area div.page_area { margin-left: 10px }
+div.title_area div.page_area a:not(:first-child) { margin-left: 5px }
+table { width: 100%; border-collapse: collapse }
+table, td, th { border: 1px solid }
+table td { height: 23px }
+table td.left { padding-left: 10px }
+table td.center { text-align: center }
