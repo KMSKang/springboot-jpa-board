@@ -8,9 +8,9 @@ spring:
     password: 1234
   jpa:
     hibernate:
-      ddl-auto: create-drop
+#      ddl-auto: create-drop
 #      ddl-auto: create
-#      ddl-auto: update
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
@@ -29,6 +29,12 @@ spring:
       enabled: true
     restart:
       enabled: false
+
+logging:
+  level:
+    com.board.www: DEBUG
+    org.springframework.security.web: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
 ---
 spring:
   config:

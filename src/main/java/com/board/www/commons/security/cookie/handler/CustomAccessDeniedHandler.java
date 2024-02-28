@@ -1,4 +1,4 @@
-package com.board.www.commons.security.handler;
+package com.board.www.commons.security.cookie.handler;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,8 +1,7 @@
-package com.board.www.commons.security.provider;
+package com.board.www.commons.security.cookie.provider;
 
-import com.board.www.commons.security.dto.AccountContext;
-import com.board.www.commons.security.common.FormWebAuthenticationDetails;
-import lombok.NoArgsConstructor;
+import com.board.www.commons.security.cookie.dto.AccountContext;
+import com.board.www.commons.security.cookie.common.FormWebAuthenticationDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

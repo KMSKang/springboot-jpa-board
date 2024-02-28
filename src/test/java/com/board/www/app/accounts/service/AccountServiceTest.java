@@ -2,43 +2,30 @@ package com.board.www.app.accounts.service;
 
 import com.board.www.app.accounts.domain.Account;
 import com.board.www.app.accounts.dto.AccountDto;
-import com.board.www.app.accounts.repository.AccountRepository;
 import com.board.www.app.accounts.utils.AccountUtils;
-import com.board.www.app.boards.utils.BoardUtils;
-import com.board.www.commons.dto.MyRestDoc;
 import com.board.www.commons.exception.dto.Exception500;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ActiveProfiles("local")
 @DisplayName("/accounts/service")
+@Transactional
 @SpringBootTest
-class AccountServiceTest extends MyRestDoc {
+class AccountServiceTest {
     @Autowired private JdbcTemplate jdbcTemplate;
     @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private AccountUtils accountUtils;
-    @Autowired private AccountService service;
 
-    @AfterEach
-    public void afterEach() {
-        String[] tableNames = {"board", "account"};
-        for (String tableName : tableNames) {
-            jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 0");
-            jdbcTemplate.execute("TRUNCATE TABLE " + tableName);
-            jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 1");
-        }
-    }
+    @Autowired private AccountService service;
 
     @Test
     @DisplayName("회원 등록")

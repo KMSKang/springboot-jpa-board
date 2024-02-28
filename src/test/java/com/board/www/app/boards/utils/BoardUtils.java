@@ -4,6 +4,7 @@ import com.board.www.app.boards.dto.BoardDto;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Component
 public class BoardUtils {
-    protected Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    @Autowired private Validator validator;
 
     public List<BoardDto> givenBoards(int size) {
         List<BoardDto> result = new ArrayList<>();

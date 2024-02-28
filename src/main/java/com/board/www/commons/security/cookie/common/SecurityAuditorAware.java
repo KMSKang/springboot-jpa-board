@@ -1,8 +1,7 @@
-package com.board.www.commons.security.config;
+package com.board.www.commons.security.cookie.common;
 
 import com.board.www.app.accounts.domain.Account;
-import com.board.www.app.accounts.service.AccountService;
-import com.board.www.commons.security.dto.AccountContext;
+import com.board.www.commons.security.cookie.dto.AccountContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -15,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Configuration
 public class SecurityAuditorAware implements AuditorAware<Account> {
-  private final AccountService accountService;
+//  private final AccountService accountService;
 
   @Override
   public Optional<Account> getCurrentAuditor() {

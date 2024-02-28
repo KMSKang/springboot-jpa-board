@@ -1,4 +1,4 @@
-package com.board.www.commons.security.dto;
+package com.board.www.commons.security.cookie.dto;
 
 import com.board.www.app.accounts.domain.Account;
 import org.springframework.security.core.GrantedAuthority;

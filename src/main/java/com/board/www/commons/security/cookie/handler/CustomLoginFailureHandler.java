@@ -1,4 +1,4 @@
-package com.board.www.commons.security.handler;
+package com.board.www.commons.security.cookie.handler;
 
 import com.board.www.commons.utils.CommonUtils;
 import jakarta.servlet.ServletException;

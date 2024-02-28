@@ -1,9 +1,7 @@
-package com.board.www.commons.security.handler;
+package com.board.www.commons.security.cookie.handler;
 
-import com.board.www.commons.security.dto.AccountContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;

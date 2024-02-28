@@ -7,17 +7,15 @@ import com.board.www.commons.dto.MyRestDoc;
 import com.board.www.commons.dto.ResponseDto;
 import com.board.www.commons.dto.WithMockAccount;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,26 +23,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 
-@ActiveProfiles("local")
+@DisplayName("/boards/controller")
+@Transactional
 @AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
 @AutoConfigureMockMvc
-@DisplayName("/boards/controller")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK) // extends MyRestDoc
 public class BoardControllerTest extends MyRestDoc {
-    @Autowired private JdbcTemplate jdbcTemplate;
     @Autowired private ObjectMapper objectMapper;
     @Autowired private CommonTestUtils commonUtils;
     @Autowired private BoardUtils boardUtils;
-
-    @AfterEach
-    public void afterEach() {
-        String[] tableNames = {"board", "account"};
-        for (String tableName : tableNames) {
-            jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 0");
-            jdbcTemplate.execute("TRUNCATE TABLE " + tableName);
-            jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 1");
-        }
-    }
 
     @Test
 //    @WithMockAccount
@@ -57,6 +44,8 @@ public class BoardControllerTest extends MyRestDoc {
     @WithMockAccount
     @DisplayName("게시판 등록")
     void insert() throws Exception {
+        System.out.println("테스트: "+ Thread.currentThread());
+
         // given
         String username = commonUtils.givenAccount();
         List<BoardDto> boards = boardUtils.givenBoards(1);
@@ -77,8 +66,8 @@ public class BoardControllerTest extends MyRestDoc {
         assertThat(responseDto.getCode()).isEqualTo(200);
         assertThat(responseDto.getMessage()).isEqualTo("OK");
         assertThat(boardDto.getId()).isEqualTo(1L);
-        assertThat(boardDto.getTitle()).isEqualTo("title0");
-        assertThat(boardDto.getContent()).isEqualTo("content0");
+        assertThat(boardDto.getTitle()).isEqualTo("title1");
+        assertThat(boardDto.getContent()).isEqualTo("content1");
         assertThat(boardDto.getCreatedBy()).isEqualTo(username);
     }
 }

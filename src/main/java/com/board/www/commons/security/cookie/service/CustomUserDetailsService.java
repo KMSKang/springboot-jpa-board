@@ -1,7 +1,7 @@
-package com.board.www.commons.security.service;
+package com.board.www.commons.security.cookie.service;
 
 import com.board.www.app.accounts.domain.Account;
-import com.board.www.commons.security.dto.AccountContext;
+import com.board.www.commons.security.cookie.dto.AccountContext;
 import com.board.www.app.accounts.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;

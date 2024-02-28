@@ -2,13 +2,10 @@ package com.board.www.app.accounts.controller;
 
 import com.board.www.app.accounts.domain.Account;
 import com.board.www.app.accounts.dto.AccountDto;
-import com.board.www.app.accounts.repository.AccountRepository;
 import com.board.www.app.accounts.utils.AccountUtils;
 import com.board.www.commons.dto.MyRestDoc;
 import com.board.www.commons.dto.ResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.ConstraintViolation;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,39 +13,25 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@ActiveProfiles("local")
+@DisplayName("/accounts/controller")
+@Transactional
 @AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
 @AutoConfigureMockMvc
-@DisplayName("/accounts/controller")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK) // extends MyRestDoc
 class AccountControllerTest extends MyRestDoc {
-    @Autowired private JdbcTemplate jdbcTemplate;
     @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private ObjectMapper objectMapper;
     @Autowired private AccountUtils accountUtils;
-
-    @AfterEach
-    public void afterEach() {
-        String[] tableNames = {"board", "account"};
-        for (String tableName : tableNames) {
-            jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 0");
-            jdbcTemplate.execute("TRUNCATE TABLE " + tableName);
-            jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 1");
-        }
-    }
 
     @Test
     @DisplayName("회원 등록")

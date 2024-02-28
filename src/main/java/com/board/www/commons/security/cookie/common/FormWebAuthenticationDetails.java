@@ -1,4 +1,4 @@
-package com.board.www.commons.security.common;
+package com.board.www.commons.security.cookie.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;

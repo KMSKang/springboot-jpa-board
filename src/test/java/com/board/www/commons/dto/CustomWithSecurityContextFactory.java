@@ -1,7 +1,7 @@
 package com.board.www.commons.dto;
 
 import com.board.www.app.accounts.domain.Account;
-import com.board.www.commons.security.dto.AccountContext;
+import com.board.www.commons.security.cookie.dto.AccountContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

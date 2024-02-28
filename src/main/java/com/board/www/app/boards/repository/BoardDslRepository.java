@@ -70,6 +70,6 @@ public class BoardDslRepository {
             return account.username.contains(keyword);
         }
 
-        return board.title.contains(keyword).or(account.username.eq(keyword));
+        return board.title.contains(keyword).or(account.username.contains(keyword));
     }
 }

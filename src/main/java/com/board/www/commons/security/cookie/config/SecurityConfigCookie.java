@@ -1,16 +1,12 @@
-package com.board.www.commons.security.config;
+package com.board.www.commons.security.cookie.config;
 
-import com.board.www.commons.security.common.FormAuthenticationDetailsSource;
-import com.board.www.commons.security.handler.CustomAccessDeniedHandler;
-import com.board.www.commons.security.handler.CustomAuthenticationHandler;
-import com.board.www.commons.security.provider.CustomAuthenticationProvider;
+import com.board.www.commons.security.cookie.common.FormAuthenticationDetailsSource;
+import com.board.www.commons.security.cookie.handler.CustomAccessDeniedHandler;
+import com.board.www.commons.security.cookie.handler.CustomAuthenticationHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -26,7 +21,7 @@ import static java.lang.Boolean.TRUE;
 
 @RequiredArgsConstructor
 @Configuration
-public class SecurityConfig {
+public class SecurityConfigCookie {
   private final UserDetailsService userDetailsService; // 기본 로그인
   private final FormAuthenticationDetailsSource authenticationDetailsSource; // 접근 권한 핸들러
   private final AuthenticationSuccessHandler authenticationSuccessHandler; // 로그인 성공 핸들러
