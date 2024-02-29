@@ -1,4 +1,4 @@
-package com.board.www.commons.security.cookie.handler;
+package com.board.www.commons.security.cookie.handler.form;
 
 import com.board.www.commons.utils.CommonUtils;
 import jakarta.servlet.ServletException;
@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -15,10 +16,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@RequiredArgsConstructor
 @Component
-public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
-  private final CommonUtils utils;
+public class CustomFormLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+  @Autowired private CommonUtils utils;
 
   @Override
   public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {

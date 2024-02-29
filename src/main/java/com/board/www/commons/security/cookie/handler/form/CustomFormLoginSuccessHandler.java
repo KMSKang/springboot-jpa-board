@@ -1,4 +1,4 @@
-package com.board.www.commons.security.cookie.handler;
+package com.board.www.commons.security.cookie.handler.form;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class CustomFormLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
   private RequestCache requestCache = new HttpSessionRequestCache();
   private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 

@@ -1,6 +1,7 @@
 package com.board.www.commons.security.cookie.service;
 
 import com.board.www.app.accounts.domain.Account;
+import com.board.www.commons.exception.dto.Exception500;
 import com.board.www.commons.security.cookie.dto.AccountContext;
 import com.board.www.app.accounts.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Account account = accountRepository.findByUsername(username);
     if (account == null) {
-      throw new BadCredentialsException("아이디를 찾을 수 없습니다");
+      throw new Exception500("아이디를 찾을 수 없습니다");
     }
     List<GrantedAuthority> roles = new ArrayList<>();
     roles.add(new SimpleGrantedAuthority(account.getRole().getName()));
