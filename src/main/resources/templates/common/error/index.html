@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
@@ -14,17 +14,13 @@
 <body>
 <label><input th:type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/></label>
 <label><input th:type="hidden" name="secret_key" th:value="secret"></label>
-<label><input th:type="hidden" name="isLogin" id="isLogin" sec:authorize="isAuthenticated()"></label>
 <div class="title_area">
-    <p>메인 페이지</p>
+    <p>에러 페이지</p>
     <div class="page_area">
-        <a href="/login" class="hidden" id="btn-login">로그인</a>
-        <a href="/logout" class="hidden" id="btn-logout">로그아웃</a>
-        <a href="/boards">게시판</a>
-        <a href="/admin">관리자</a>
+        <a href="#" onclick="windowHistoryBack()">이전</a>
     </div>
 </div>
 <script src="/js/app/common.js"></script>
-<script src="/js/app/index.js"></script>
+<script src="/js/app/error/index.js"></script>
 </body>
 </html>

@@ -1,30 +1,65 @@
-[프로젝트]
-1. 언어: Java
-3. Java 버전: 17
-3. 프레임워크: Spring Boot
-4. 스프링 버전: 3.2.2
+## 사용 기술
+- Java 17
+- Gradle 8.5
+- Spring Boot 3.2.2
+- Spring Security
+- Spring Batch
+- JPA, H2, MySQL
+- Data JPA, QueryDSL
+- Thymeleaf
+- Redis
+- Kafka
+- Junit5
+- MockMvc
 ---
-[프로젝트 실행 시 주의사항]
-1. Edit Configurations -> Active profiles: local 설정
+
+## [!] 프로젝트 실행 전
+<details>
+    <summary>Edit Configurations -> Active profiles: local 설정</summary>
+
+![1.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Freadme%2Factive_profiles%2F1.png)
+![2.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Freadme%2Factive_profiles%2F2.png)
+
+</details>
+
 ---
-[테스트 코드 실행 시 주의사항]
-1. H2 실행
----
-[H2]
-1. 터미널
-cd h2/bin
+## [!] 테스트 코드 실행 전
+
+<details>
+    <summary>H2 실행</summary>
+
+**1. 터미널**
+```
+cd [폴더 경로]/bin
 ./h2.sh
+```
+![1.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Freadme%2Fh2%2F1.png)
 
-2. 웹 페이지
-JDBC URL: jdbc:h2:~/board
-연결 버튼 클릭
-연결 끊기 버튼 클릭
+**2. 웹**
+```
+도메인 변경 -> localhost
+```
+![2.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Freadme%2Fh2%2F2.png)
 
-3. 터미널 새로운 창
-cd ~
+---
+```
+JDBC URL 변경 -> jdbc:h2:~/board
+```
+![3.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Freadme%2Fh2%2F3.png)
+
+---
+```
 board.mv.db 파일 생성 확인
 
-4. 웹 페이지
-JDBC URL: jdbc:h2:tcp://localhost/~/datajpa
-연결 버튼 클릭
+cd ~
+ls -al | grep ['문자열']
+```
+![4.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Freadme%2Fh2%2F4.png)
+
 ---
+```
+연결 버튼 클릭하여 접속
+```
+![5.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Freadme%2Fh2%2F5.png)
+![6.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Freadme%2Fh2%2F6.png)
+</details>

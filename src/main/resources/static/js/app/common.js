@@ -6,6 +6,10 @@ const token = document.querySelector('meta[name="_csrf"]').content
 const header = document.querySelector('meta[name="_csrf_header"]').content
 const isLogin = document.getElementById('isLogin') !== null
 
+function windowLocationHref(url) {
+    window.location.href = url
+}
+
 function windowHistoryBack() {
     window.history.back()
 }

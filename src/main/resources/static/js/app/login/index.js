@@ -1,6 +1,19 @@
+const exception = new URLSearchParams(location.search).get('exception')
 const username = document.getElementById('username')
 const password = document.getElementById('password')
 const btnSubmit = document.getElementById('btn-submit')
+
+if (exception) {
+    if ('InternalAuthenticationServiceException' === exception) {
+        alert('아이디를 찾을 수 없습니다')
+        windowHistoryBack()
+    }
+
+    if ('BadCredentialsException' === exception) {
+        alert('비밀번호가 일치하지 않습니다')
+        windowHistoryBack()
+    }
+}
 
 btnSubmit.addEventListener('click', function () {
     let params = {
@@ -21,7 +34,7 @@ btnSubmit.addEventListener('click', function () {
         // console.log(message)
         // console.log(data)
 
-        location.href = data
+        location.href = '/'
     }).catch((error) => {
         console.log(error)
         console.log(error.response.data)
