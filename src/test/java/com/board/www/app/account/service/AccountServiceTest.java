@@ -38,7 +38,6 @@ class AccountServiceTest extends AccountUtils {
         // then
         assertThat(accountDto.getRole()).isEqualTo(Account.Role.USER);
         assertThat(accountDto.getUsername()).isEqualTo("username1");
-        assertThat(passwordEncoder.matches(accountDto.getPassword(), password));
     }
 
     @Test
@@ -51,44 +50,8 @@ class AccountServiceTest extends AccountUtils {
         // when
         accounts.forEach(row -> service.insert(row));
         Exception500 e = assertThrows(Exception500.class, () -> service.insert(dto));
+
+        // then
         assertThat(e.getMessage()).isEqualTo("이미 가입된 계정이 있습니다");
-
-        // then
-    }
-
-    @Test
-    @DisplayName("[ING] 로그인")
-    void login() {
-        // given
-        boolean isComplete = false;
-        assertThat(isComplete).isEqualTo(true);
-
-        // when
-
-        // then
-    }
-
-    @Test
-    @DisplayName("[ING] 로그인 - 오류(아이디)")
-    void login_error_username() {
-        // given
-        boolean isComplete = false;
-        assertThat(isComplete).isEqualTo(true);
-
-        // when
-
-        // then
-    }
-
-    @Test
-    @DisplayName("[ING] 로그인 - 오류(비밀번호)")
-    void login_error_password() {
-        // given
-        boolean isComplete = false;
-        assertThat(isComplete).isEqualTo(true);
-
-        // when
-
-        // then
     }
 }

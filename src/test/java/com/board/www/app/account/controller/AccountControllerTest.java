@@ -42,7 +42,6 @@ class AccountControllerTest extends MyRestDoc {
         // given
         List<AccountDto> accounts = accountUtils.givenAccounts(1);
         AccountDto dto = accounts.get(0);
-        final String password = passwordEncoder.encode(dto.getPassword());
         String dtoStringify = objectMapper.writeValueAsString(dto);
 
         // when
@@ -62,7 +61,7 @@ class AccountControllerTest extends MyRestDoc {
     }
 
     @Test
-    @DisplayName("로그인 - form")
+    @DisplayName("[ING] 로그인(form)")
     void login() throws Exception {
         // given
         insert();
@@ -82,7 +81,7 @@ class AccountControllerTest extends MyRestDoc {
     }
 
     @Test
-    @DisplayName("로그인 - axios")
+    @DisplayName("로그인(axios)")
     void login_axios() throws Exception {
         // given
         insert();
@@ -102,6 +101,52 @@ class AccountControllerTest extends MyRestDoc {
         // then
         assertThat(responseDto.getCode()).isEqualTo(200);
         assertThat(responseDto.getMessage()).isEqualTo("OK");
+    }
+
+    @Test
+    @DisplayName("로그인(axios) - 오류(아이디)")
+    void login_axios_error_username() throws Exception {
+        // given
+        insert();
+        AccountDto dto = AccountDto.create("username2", "password1");
+        String dtoStringify = objectMapper.writeValueAsString(dto);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(post("/api/login")
+                .with(csrf())
+                .content(dtoStringify)
+                .contentType(MediaType.APPLICATION_JSON));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        ResponseDto responseDto = objectMapper.readValue(responseBody, ResponseDto.class);
+        System.out.println(responseBody);
+        System.out.println(responseDto);
+
+        // then
+        assertThat(responseDto.getCode()).isEqualTo(400);
+        assertThat(responseDto.getMessage()).isEqualTo("아이디를 찾을 수 없습니다");
+    }
+
+    @Test
+    @DisplayName("로그인(axios) - 오류(비밀번호)")
+    void login_axios_error_password() throws Exception {
+        // given
+        insert();
+        AccountDto dto = AccountDto.create("username1", "password2");
+        String dtoStringify = objectMapper.writeValueAsString(dto);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(post("/api/login")
+                .with(csrf())
+                .content(dtoStringify)
+                .contentType(MediaType.APPLICATION_JSON));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        ResponseDto responseDto = objectMapper.readValue(responseBody, ResponseDto.class);
+        System.out.println(responseBody);
+        System.out.println(responseDto);
+
+        // then
+        assertThat(responseDto.getCode()).isEqualTo(400);
+        assertThat(responseDto.getMessage()).isEqualTo("비밀번호가 일치하지 않습니다");
     }
 
     @Test

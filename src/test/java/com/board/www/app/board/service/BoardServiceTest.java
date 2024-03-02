@@ -5,7 +5,6 @@ import com.board.www.app.account.dto.AccountDto;
 import com.board.www.app.account.repository.AccountRepository;
 import com.board.www.app.account.utils.AccountUtils;
 import com.board.www.app.board.dto.BoardDto;
-import com.board.www.app.board.repository.BoardDslRepository;
 import com.board.www.app.board.repository.BoardRepository;
 import com.board.www.app.board.utils.BoardUtils;
 import com.board.www.common.dto.WithMockAccount;
@@ -15,10 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.board.www.app.board.dto.BoardDto.KeywordType.CREATEDBY;
+import static com.board.www.app.board.dto.BoardDto.KeywordType.TITLE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("/boards/service")
@@ -29,7 +31,6 @@ class BoardServiceTest extends BoardUtils {
 
     @Autowired private BoardService service;
     @Autowired private BoardRepository repository;
-    @Autowired private BoardDslRepository dslRepository;
     @Autowired private AccountRepository accountRepository;
 
     @Test
@@ -39,18 +40,20 @@ class BoardServiceTest extends BoardUtils {
         // given
         String username = accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = givenBoards(11);
-
-        // when
         boards.forEach(dto -> service.insert(dto));
 
-        PageRequest pageRequest = PageRequest.of(0, 10);
-//        PageRequest pageRequest = PageRequest.of(1, 10); // 오류
-        Page<BoardDto> pageable = dslRepository.findAll(null, null, pageRequest);
-        List<BoardDto> contents = pageable.getContent();
+        BoardDto.KeywordType keywordType = null;
+        String keyword = "";
+        Pageable pageable = PageRequest.of(0, 10);
+//        Pageable pageable = PageRequest.of(1, 10); // 오류
+
+        // when
+        Page<BoardDto> responseDto = service.index(keywordType, keyword, pageable);
+        List<BoardDto> contents = responseDto.getContent();
         BoardDto content = contents.get(0);
 
         // then
-        assertThat(pageable.getTotalElements()).isEqualTo(11); // 전체 개수
+        assertThat(responseDto.getTotalElements()).isEqualTo(11); // 전체 개수
         assertThat(contents.size()).isEqualTo(10); // 현재 페이지 개수
         assertThat(content.getTitle()).isEqualTo("title11");
         assertThat(content.getCreatedBy()).isEqualTo(username);
@@ -63,18 +66,20 @@ class BoardServiceTest extends BoardUtils {
         // given
         String username = accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = givenBoards(11);
-
-        // when
         boards.forEach(dto -> service.insert(dto));
 
-        PageRequest pageRequest = PageRequest.of(1, 10);
-//        PageRequest pageRequest = PageRequest.of(0, 10); // 오류
-        Page<BoardDto> pageable = dslRepository.findAll(null, null, pageRequest);
-        List<BoardDto> contents = pageable.getContent();
+        BoardDto.KeywordType keywordType = null;
+        String keyword = "";
+        Pageable pageable = PageRequest.of(1, 10);
+//        Pageable pageable = PageRequest.of(0, 10); // 오류
+
+        // when
+        Page<BoardDto> responseDto = service.index(keywordType, keyword, pageable);
+        List<BoardDto> contents = responseDto.getContent();
         BoardDto content = contents.get(0);
 
         // then
-        assertThat(pageable.getTotalElements()).isEqualTo(11); // 전체 개수
+        assertThat(responseDto.getTotalElements()).isEqualTo(11); // 전체 개수
         assertThat(contents.size()).isEqualTo(1); // 현재 페이지 개수
         assertThat(content.getTitle()).isEqualTo("title1");
         assertThat(content.getCreatedBy()).isEqualTo(username);
@@ -87,18 +92,20 @@ class BoardServiceTest extends BoardUtils {
         // given
         String username = accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = givenBoards(11);
-
-        // when
         boards.forEach(dto -> service.insert(dto));
 
-        PageRequest pageRequest = PageRequest.of(0, 10);
-        Page<BoardDto> pageable = dslRepository.findAll(null, "1", pageRequest);
-//        Page<BoardDto> pageable = dslRepository.findAll(null, "2", pageRequest); // 오류
-        List<BoardDto> contents = pageable.getContent();
+        BoardDto.KeywordType keywordType = null;
+        String keyword = "1";
+//        String keyword = "2"; // 오류
+        Pageable pageable = PageRequest.of(0, 10);
+
+        // when
+        Page<BoardDto> responseDto = service.index(keywordType, keyword, pageable);
+        List<BoardDto> contents = responseDto.getContent();
         BoardDto content = contents.get(0);
 
         // then
-        assertThat(pageable.getTotalElements()).isEqualTo(3); // 전체 개수
+        assertThat(responseDto.getTotalElements()).isEqualTo(3); // 전체 개수
         assertThat(contents.size()).isEqualTo(3); // 현재 페이지 개수
         assertThat(content.getTitle()).isEqualTo("title11");
         assertThat(content.getCreatedBy()).isEqualTo(username);
@@ -111,18 +118,20 @@ class BoardServiceTest extends BoardUtils {
         // given
         String username = accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = givenBoards(11);
-
-        // when
         boards.forEach(dto -> service.insert(dto));
 
-        PageRequest pageRequest = PageRequest.of(0, 10);
-        Page<BoardDto> pageable = dslRepository.findAll(BoardDto.KeywordType.TITLE, "1", pageRequest);
-//        Page<BoardDto> pageable = dslRepository.findAll(BoardDto.KeywordType.TITLE, "2", pageRequest); // 오류
-        List<BoardDto> contents = pageable.getContent();
+        BoardDto.KeywordType keywordType = TITLE;
+        String keyword = "1";
+//        String keyword = "2"; // 오류
+        Pageable pageable = PageRequest.of(0, 10);
+
+        // when
+        Page<BoardDto> responseDto = service.index(keywordType, keyword, pageable);
+        List<BoardDto> contents = responseDto.getContent();
         BoardDto content = contents.get(0);
 
         // then
-        assertThat(pageable.getTotalElements()).isEqualTo(3); // 전체 개수
+        assertThat(responseDto.getTotalElements()).isEqualTo(3); // 전체 개수
         assertThat(contents.size()).isEqualTo(3); // 현재 페이지 개수
         assertThat(content.getTitle()).isEqualTo("title11");
         assertThat(content.getCreatedBy()).isEqualTo(username);
@@ -130,27 +139,30 @@ class BoardServiceTest extends BoardUtils {
 
     @Test
     @WithMockAccount
-    @DisplayName("게시판 리스트 - (검색: 등록자명 / 내용: kang)")
+    @DisplayName("게시판 리스트 - (검색: 등록자명 / 내용: Kang)")
     void index_search_keywordType_CREATEDBY_keyword() {
         // given
         accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = givenBoards(11);
+        boards.forEach(dto -> service.insert(dto));
+
         Account account1 = accountRepository.save(AccountDto.create("BaekKiSeon", "BaekKiSeon1234").toEntity());
         Account account2 = accountRepository.save(AccountDto.create("KimYoungHan", "KimYoungHan1234").toEntity());
         repository.save(BoardDto.create("titleBaek", "contentBaek").toEntity(account1));
         repository.save(BoardDto.create("titleKim", "contentKim").toEntity(account2));
 
-        // when
-        boards.forEach(dto -> service.insert(dto));
+        BoardDto.KeywordType keywordType = CREATEDBY;
+        String keyword = "Kang";
+//        String keyword = "Baek"; // 오류
+        Pageable pageable = PageRequest.of(0, 10);
 
-        PageRequest pageRequest = PageRequest.of(0, 10);
-        Page<BoardDto> pageable = dslRepository.findAll(BoardDto.KeywordType.CREATEDBY, "Kang", pageRequest);
-//        Page<BoardDto> pageable = dslRepository.findAll(BoardDto.KeywordType.CREATEDBY, "Baek", pageRequest); // 오류
-        List<BoardDto> contents = pageable.getContent();
+        // when
+        Page<BoardDto> responseDto = service.index(keywordType, keyword, pageable);
+        List<BoardDto> contents = responseDto.getContent();
         BoardDto content = contents.get(0);
 
         // then
-        assertThat(pageable.getTotalElements()).isEqualTo(11); // 전체 개수
+        assertThat(responseDto.getTotalElements()).isEqualTo(11); // 전체 개수
         assertThat(contents.size()).isEqualTo(10); // 현재 페이지 개수
         assertThat(content.getTitle()).isEqualTo("title11");
         assertThat(content.getCreatedBy()).isEqualTo("KangMinSung");
