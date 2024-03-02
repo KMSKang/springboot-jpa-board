@@ -44,6 +44,15 @@ function load() {
         reset(data)
     }).catch((error) => {
         console.log(error)
+        const responseData = error.response.data
+        const code = responseData.code
+        const message = responseData.message
+        const data = responseData.data
+        console.log(responseData)
+        console.log(code)
+        console.log(message)
+        console.log(data)
+        alertError(message)
     }).finally(() => {
         //
     })
@@ -190,8 +199,15 @@ btnSubmit.addEventListener('click', function () {
         load()
     }).catch((error) => {
         console.log(error)
-        // console.log(error.response.data)
-        alertError(error.response.data.data)
+        const responseData = error.response.data
+        const code = responseData.code
+        const message = responseData.message
+        const data = responseData.data
+        console.log(responseData)
+        console.log(code)
+        console.log(message)
+        console.log(data)
+        alertError(message)
     }).finally(() => {
         $.LoadingOverlay('hide')
     })

@@ -32,8 +32,7 @@ public class AccountDto extends BaseDto {
     public static AccountDto response(Account entity) {
         AccountDto result = new AccountDto();
         result.setId(entity.getId());
-        result.username = entity.getUsername();
-        result.password = entity.getPassword();
+        result.setUsername(entity.getUsername());
         return result;
     }
 

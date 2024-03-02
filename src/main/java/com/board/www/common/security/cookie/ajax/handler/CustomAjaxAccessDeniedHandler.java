@@ -23,6 +23,6 @@ public class CustomAjaxAccessDeniedHandler implements AccessDeniedHandler {
         HttpStatus httpStatus = HttpStatus.FORBIDDEN; // 인증 (권한)
         response.setStatus(httpStatus.value());
         response.setContentType("application/json; charset=UTF-8");
-        response.getWriter().print(objectMapper.writeValueAsString(new ResponseDto<>(httpStatus, httpStatus.name(), "Forbidden Exception")));
+        response.getWriter().print(objectMapper.writeValueAsString(new ResponseDto<>(httpStatus, "Forbidden Exception", null)));
     }
 }

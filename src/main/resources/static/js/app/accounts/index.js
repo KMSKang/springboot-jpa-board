@@ -19,15 +19,23 @@ btnSubmit.addEventListener('click', function () {
         const message = responseData.message
         const data = responseData.data
         // console.log(responseData)
-        // console.log(code)
-        // console.log(message)
-        // console.log(data)
+        // console.log('code', code)
+        // console.log('message', message)
+        // console.log('data', data)
 
         alert('가입 완료')
+        windowHistoryBack()
     }).catch((error) => {
         console.log(error)
-        // console.log(error.response.data)
-        alertError(error.response.data.data)
+        const responseData = error.response.data
+        const code = responseData.code
+        const message = responseData.message
+        const data = responseData.data
+        console.log(responseData)
+        console.log(code)
+        console.log(message)
+        console.log(data)
+        alertError(message)
     }).finally(() => {
         $.LoadingOverlay('hide')
     })

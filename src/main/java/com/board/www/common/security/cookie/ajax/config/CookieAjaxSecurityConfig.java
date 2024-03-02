@@ -19,7 +19,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.context.DelegatingSecurityContextRepository;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
@@ -64,9 +66,9 @@ public class CookieAjaxSecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.authenticationProvider(ajaxAuthenticationProvider());
-        return authenticationManagerBuilder.build();
+        AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        builder.authenticationProvider(ajaxAuthenticationProvider());
+        return builder.build();
     }
 
     @Bean
@@ -75,13 +77,19 @@ public class CookieAjaxSecurityConfig {
     }
 
     @Bean
+    public RememberMeServices rememberMeServices() {
+        return new TokenBasedRememberMeServices("remember-me", ajaxUserDetailsService());
+    }
+
+    @Bean
     public LoginAuthenticationFilter ajaxLoginProcessingFilter(HttpSecurity http) throws Exception {
-        LoginAuthenticationFilter ajaxLoginProcessingFilter = new LoginAuthenticationFilter();
-        ajaxLoginProcessingFilter.setAuthenticationManager(authenticationManager(http));
-        ajaxLoginProcessingFilter.setSecurityContextRepository(securityContextRepository());
-        ajaxLoginProcessingFilter.setAuthenticationSuccessHandler(ajaxLoginSuccessHandler());
-        ajaxLoginProcessingFilter.setAuthenticationFailureHandler(ajaxLoginFailureHandler());
-        return ajaxLoginProcessingFilter;
+        LoginAuthenticationFilter filter = new LoginAuthenticationFilter();
+        filter.setAuthenticationManager(authenticationManager(http));
+        filter.setAuthenticationSuccessHandler(ajaxLoginSuccessHandler());
+        filter.setAuthenticationFailureHandler(ajaxLoginFailureHandler());
+        filter.setSecurityContextRepository(securityContextRepository());
+        filter.setRememberMeServices(rememberMeServices());
+        return filter;
     }
 
     @Bean
@@ -114,7 +122,6 @@ public class CookieAjaxSecurityConfig {
             .key("remember-me")
             .tokenValiditySeconds(86400 * 30)
             .alwaysRemember(true)
-//            .userDetailsService(customAjaxUserDetailsService);
             .userDetailsService(ajaxUserDetailsService());
 
         http.logout()

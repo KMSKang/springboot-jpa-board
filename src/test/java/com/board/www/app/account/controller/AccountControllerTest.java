@@ -59,7 +59,6 @@ class AccountControllerTest extends MyRestDoc {
         assertThat(responseDto.getMessage()).isEqualTo("OK");
         assertThat(accountDto.getRole()).isEqualTo(Account.Role.USER);
         assertThat(accountDto.getUsername()).isEqualTo("username1");
-        assertThat(passwordEncoder.matches(accountDto.getPassword(), password));
     }
 
     @Test

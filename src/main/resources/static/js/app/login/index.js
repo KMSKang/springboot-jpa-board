@@ -16,14 +16,16 @@ if (exception) {
 }
 
 btnSubmit.addEventListener('click', function () {
+    $.LoadingOverlay('show')
+
     let params = {
         'username': username.value,
-        'password': password.value,
+        'password': password.value
     }
 
     axios.post('/api/login', params, {
         header: { header, token },
-        params: { '_csrf': csrf }
+        params: { '_csrf': csrf , 'remember-me': true }
     }).then((response) => {
         const responseData = response.data
         const code = responseData.code
@@ -37,8 +39,15 @@ btnSubmit.addEventListener('click', function () {
         location.href = '/'
     }).catch((error) => {
         console.log(error)
-        console.log(error.response.data)
-        alertError(error.response.data.data)
+        const responseData = error.response.data
+        const code = responseData.code
+        const message = responseData.message
+        const data = responseData.data
+        console.log(responseData)
+        console.log(code)
+        console.log(message)
+        console.log(data)
+        alertError(message)
     }).finally(() => {
         $.LoadingOverlay('hide')
     })

@@ -38,6 +38,6 @@ public class CustomAjaxLoginFailureHandler extends SimpleUrlAuthenticationFailur
 		HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
 		response.setStatus(httpStatus.value());
 		response.setContentType("application/json; charset=UTF-8");
-		response.getWriter().print(objectMapper.writeValueAsString(new ResponseDto<>(httpStatus, httpStatus.name(), message)));
+		response.getWriter().print(objectMapper.writeValueAsString(new ResponseDto<>(httpStatus, message, null)));
 	}
 }

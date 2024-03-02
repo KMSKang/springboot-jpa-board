@@ -15,10 +15,6 @@ function windowHistoryBack() {
 }
 
 function alertError(data) {
-    // console.log(data)
-    if (Array.isArray(data)) {
-        data = data.join(",").replaceAll(',', '\n')
-    }
     alert(data)
 }
 

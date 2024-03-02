@@ -52,7 +52,7 @@ JDBC URL 변경 -> jdbc:h2:~/board
 board.mv.db 파일 생성 확인
 
 cd ~
-ls -al | grep ['문자열']
+ls -al | grep '[문자열]'
 ```
 ![4.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Freadme%2Fh2%2F4.png)
 

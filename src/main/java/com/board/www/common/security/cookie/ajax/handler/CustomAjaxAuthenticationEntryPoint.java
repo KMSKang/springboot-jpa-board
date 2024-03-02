@@ -22,6 +22,6 @@ public class CustomAjaxAuthenticationEntryPoint implements AuthenticationEntryPo
         HttpStatus httpStatus = HttpStatus.UNAUTHORIZED; // 인가 (로그인 X)
         response.setStatus(httpStatus.value());
         response.setContentType("application/json; charset=UTF-8");
-        response.getWriter().print(objectMapper.writeValueAsString(new ResponseDto<>(httpStatus, httpStatus.name(), "Unauthorized Exception")));
+        response.getWriter().print(objectMapper.writeValueAsString(new ResponseDto<>(httpStatus, "Unauthorized Exception", null)));
     }
 }
