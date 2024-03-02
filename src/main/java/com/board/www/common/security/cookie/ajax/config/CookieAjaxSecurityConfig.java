@@ -22,6 +22,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.context.DelegatingSecurityContextRepository;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
@@ -77,6 +79,11 @@ public class CookieAjaxSecurityConfig {
     }
 
     @Bean
+    public SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+        return new NullAuthenticatedSessionStrategy();
+    }
+
+    @Bean
     public RememberMeServices rememberMeServices() {
         return new TokenBasedRememberMeServices("remember-me", ajaxUserDetailsService());
     }
@@ -88,7 +95,8 @@ public class CookieAjaxSecurityConfig {
         filter.setAuthenticationSuccessHandler(ajaxLoginSuccessHandler());
         filter.setAuthenticationFailureHandler(ajaxLoginFailureHandler());
         filter.setSecurityContextRepository(securityContextRepository());
-//        filter.setRememberMeServices(rememberMeServices());
+        filter.setSessionAuthenticationStrategy(sessionAuthenticationStrategy());
+        filter.setRememberMeServices(rememberMeServices());
         return filter;
     }
 
@@ -112,7 +120,9 @@ public class CookieAjaxSecurityConfig {
             .loginPage("/login")
             .loginProcessingUrl("/api/login");
 
-        http.addFilterBefore(ajaxLoginProcessingFilter(http), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(ajaxLoginProcessingFilter(http), UsernamePasswordAuthenticationFilter.class); // 정상
+//        http.addFilterAt(ajaxLoginProcessingFilterAt(http), UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterAfter(ajaxLoginProcessingFilter(http), UsernamePasswordAuthenticationFilter.class);
 
         http.exceptionHandling()
             .authenticationEntryPoint(ajaxAuthenticationEntryPoint())

@@ -37,6 +37,10 @@ public class CustomAjaxLoginSuccessHandler extends SimpleUrlAuthenticationSucces
         if (savedRequest != null) {
             url = savedRequest.getRedirectUrl();
         }
+
+        HttpSession session = request.getSession();
+        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
+
         HttpStatus httpStatus = HttpStatus.OK;
         response.setStatus(httpStatus.value());
         response.setContentType("application/json; charset=UTF-8");
