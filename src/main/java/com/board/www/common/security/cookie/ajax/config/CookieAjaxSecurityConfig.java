@@ -88,7 +88,7 @@ public class CookieAjaxSecurityConfig {
         filter.setAuthenticationSuccessHandler(ajaxLoginSuccessHandler());
         filter.setAuthenticationFailureHandler(ajaxLoginFailureHandler());
         filter.setSecurityContextRepository(securityContextRepository());
-        filter.setRememberMeServices(rememberMeServices());
+//        filter.setRememberMeServices(rememberMeServices());
         return filter;
     }
 
