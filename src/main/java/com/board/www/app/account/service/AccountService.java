@@ -21,7 +21,7 @@ public class AccountService {
     private final AccountRepository repository;
 
     @Transactional
-    public AccountDto insert(AccountDto dto) {
+    public AccountDto create(AccountDto dto) {
         Account account = repository.findByUsername(dto.getUsername());
         if (account != null) {
             throw new Exception500("이미 가입된 계정이 있습니다");

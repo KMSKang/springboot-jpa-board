@@ -19,13 +19,13 @@ public class BoardService {
     private final BoardDslRepository dslRepository;
 
 //    @Cacheable(value = "boards", key="{#dto.page, #dto.keyword}")
-    public Page<BoardDto> index(BoardDto.KeywordType keywordType, String keyword, Pageable pageable) {
+    public Page<BoardDto.ResponseIndexDto> index(BoardDto.KeywordType keywordType, String keyword, Pageable pageable) {
         return dslRepository.findAll(keywordType, keyword, pageable);
     }
 
 //    @CacheEvict(value = "boards", allEntries = true)
     @Transactional
-    public BoardDto insert(BoardDto dto) {
-        return BoardDto.response(repository.save(dto.toEntity(accountService.getAccount())));
+    public BoardDto create(BoardDto dto) {
+        return new BoardDto.ResponseCreateDto(repository.save(dto.toEntity(accountService.getAccount())));
     }
 }

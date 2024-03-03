@@ -26,14 +26,14 @@ class AccountServiceTest extends AccountUtils {
 
     @Test
     @DisplayName("회원 등록")
-    void insert() {
+    void create() {
         // given
         List<AccountDto> accounts = givenAccounts(1);
         AccountDto dto = accounts.get(0);
         String password = passwordEncoder.encode(dto.getPassword());
 
         // when
-        AccountDto accountDto = service.insert(dto);
+        AccountDto accountDto = service.create(dto);
 
         // then
         assertThat(accountDto.getRole()).isEqualTo(Account.Role.USER);
@@ -48,8 +48,8 @@ class AccountServiceTest extends AccountUtils {
         AccountDto dto = AccountDto.create("username1", "password1");
 
         // when
-        accounts.forEach(row -> service.insert(row));
-        Exception500 e = assertThrows(Exception500.class, () -> service.insert(dto));
+        accounts.forEach(row -> service.create(row));
+        Exception500 e = assertThrows(Exception500.class, () -> service.create(dto));
 
         // then
         assertThat(e.getMessage()).isEqualTo("이미 가입된 계정이 있습니다");

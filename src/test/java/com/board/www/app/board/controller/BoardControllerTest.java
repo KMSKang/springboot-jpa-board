@@ -17,7 +17,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +48,7 @@ public class BoardControllerTest extends MyRestDoc {
         // given
         accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = boardUtils.givenBoards(11);
-        boards.forEach(dto -> service.insert(dto));
+        boards.forEach(dto -> service.create(dto));
 
         BoardDto.KeywordType keywordType = null;
         String keyword = "";
@@ -105,7 +104,7 @@ public class BoardControllerTest extends MyRestDoc {
     @Test
     @WithMockAccount
     @DisplayName("게시판 등록")
-    void insert() throws Exception {
+    void create() throws Exception {
         // given
         String username = accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = boardUtils.givenBoards(1);

@@ -15,7 +15,7 @@ public class AccountApiController {
     private final AccountService service;
 
     @PostMapping
-    public ResponseEntity<?> insert(@RequestBody @Valid AccountDto dto) {
-        return ResponseEntity.ok(new ResponseDto<>(service.insert(dto)));
+    public ResponseEntity<?> create(@RequestBody @Valid AccountDto dto) {
+        return ResponseEntity.ok(new ResponseDto<>(service.create(dto)));
     }
 }

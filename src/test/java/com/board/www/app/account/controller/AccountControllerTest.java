@@ -38,7 +38,7 @@ class AccountControllerTest extends MyRestDoc {
 
     @Test
     @DisplayName("회원 등록")
-    void insert() throws Exception {
+    void create() throws Exception {
         // given
         List<AccountDto> accounts = accountUtils.givenAccounts(1);
         AccountDto dto = accounts.get(0);
@@ -64,7 +64,7 @@ class AccountControllerTest extends MyRestDoc {
     @DisplayName("[ING] 로그인(form)")
     void login() throws Exception {
         // given
-        insert();
+        create();
         AccountDto dto = AccountDto.create("username1", "password1");
 
         // when
@@ -84,7 +84,7 @@ class AccountControllerTest extends MyRestDoc {
     @DisplayName("로그인(axios)")
     void login_axios() throws Exception {
         // given
-        insert();
+        create();
         AccountDto dto = AccountDto.create("username1", "password1");
         String dtoStringify = objectMapper.writeValueAsString(dto);
 
@@ -107,7 +107,7 @@ class AccountControllerTest extends MyRestDoc {
     @DisplayName("로그인(axios) - 오류(아이디)")
     void login_axios_error_username() throws Exception {
         // given
-        insert();
+        create();
         AccountDto dto = AccountDto.create("username2", "password1");
         String dtoStringify = objectMapper.writeValueAsString(dto);
 
@@ -130,7 +130,7 @@ class AccountControllerTest extends MyRestDoc {
     @DisplayName("로그인(axios) - 오류(비밀번호)")
     void login_axios_error_password() throws Exception {
         // given
-        insert();
+        create();
         AccountDto dto = AccountDto.create("username1", "password2");
         String dtoStringify = objectMapper.writeValueAsString(dto);
 

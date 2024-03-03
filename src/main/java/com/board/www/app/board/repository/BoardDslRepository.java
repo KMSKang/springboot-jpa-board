@@ -1,7 +1,7 @@
 package com.board.www.app.board.repository;
 
 import com.board.www.app.board.dto.BoardDto;
-import com.board.www.app.board.dto.QBoardDto;
+import com.board.www.app.board.dto.QBoardDto_ResponseIndexDto;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -22,13 +22,13 @@ import static org.springframework.util.StringUtils.hasText;
 public class BoardDslRepository {
     private final JPAQueryFactory factory;
 
-    public Page<BoardDto> findAll(BoardDto.KeywordType keywordType, String keyword, Pageable pageable) {
-        List<BoardDto> content =
-                factory.select(new QBoardDto(board.id
-                                           , board.title
-                                           , board.view
-                                           , board.createdAt
-                                           , account.username))
+    public Page<BoardDto.ResponseIndexDto> findAll(BoardDto.KeywordType keywordType, String keyword, Pageable pageable) {
+        List<BoardDto.ResponseIndexDto> content =
+                factory.select(new QBoardDto_ResponseIndexDto(board.id
+                                                            , board.title
+                                                            , board.view
+                                                            , board.createdAt
+                                                            , account.username))
                        .from(board)
                        .leftJoin(account).on(account.id.eq(board.account.id), account.isDeleted.isFalse())
                        .where(keywordEq(keywordType, keyword)
@@ -39,12 +39,12 @@ public class BoardDslRepository {
                        .orderBy(board.id.desc())
                        .fetch();
 
-        JPAQuery<BoardDto> countQuery =
-                factory.select(new QBoardDto(board.id
-                                           , board.title
-                                           , board.view
-                                           , board.createdAt
-                                           , account.username))
+        JPAQuery<BoardDto.ResponseIndexDto> countQuery =
+                factory.select(new QBoardDto_ResponseIndexDto(board.id
+                                                            , board.title
+                                                            , board.view
+                                                            , board.createdAt
+                                                            , account.username))
                                    .from(board)
                                    .leftJoin(account).on(account.id.eq(board.account.id), account.isDeleted.isFalse())
                                    .where(keywordEq(keywordType, keyword)

@@ -22,8 +22,8 @@ public class BoardApiController {
     }
 
     @PostMapping
-    public ResponseEntity<?> insert(@RequestPart @Valid BoardDto dto
+    public ResponseEntity<?> create(@RequestPart @Valid BoardDto dto
                                   , @RequestPart(required = false) MultipartFile file) {
-        return ResponseEntity.ok(new ResponseDto<>(service.insert(dto)));
+        return ResponseEntity.ok(new ResponseDto<>(service.create(dto)));
     }
 }

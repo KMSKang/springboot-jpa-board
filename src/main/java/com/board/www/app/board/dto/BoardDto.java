@@ -40,29 +40,30 @@ public class BoardDto extends BaseDto {
         final private String name;
     }
 
-    public static BoardDto create(String title, String content) {
-        BoardDto result = new BoardDto();
-        result.title = title;
-        result.content = content;
-        return result;
+    public static class ResponseIndexDto extends BoardDto {
+        @QueryProjection
+        public ResponseIndexDto(Long id, String title, int view, LocalDateTime createdAt, String username) {
+            this.setId(id);
+            super.title = title;
+            super.view = view;
+            this.setCreatedAt(CommonUtils.getDateFormat(createdAt, "YYYY-MM-dd"));
+            this.setCreatedBy(username);
+        }
     }
 
-    public static BoardDto response(Board entity) {
-        BoardDto result = new BoardDto();
-        result.setId(entity.getId());
-        result.title = entity.getTitle();
-        result.content = entity.getContent();
-        result.setCreatedBy(entity.getAccount().getUsername());
-        return result;
+    public static class ResponseCreateDto extends BoardDto {
+        public ResponseCreateDto(Board entity) {
+            super.setId(entity.getId());
+            super.setTitle(entity.getTitle());
+            super.setContent(entity.getContent());
+            super.setCreatedBy(entity.getAccount().getUsername());
+        }
     }
 
-    @QueryProjection
-    public BoardDto(Long id, String title, int view, LocalDateTime createdAt, String username) {
-        this.setId(id);
-        this.title = title;
-        this.view = view;
-        this.setCreatedAt(CommonUtils.getDateFormat(createdAt, "YYYY-MM-dd"));
-        this.setCreatedBy(username);
+    public static class ResponseDetailDto extends BoardDto {
+        public ResponseDetailDto(Board entity) {
+            //
+        }
     }
 
     public Board toEntity(Account account) {

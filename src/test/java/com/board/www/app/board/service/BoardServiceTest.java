@@ -5,6 +5,7 @@ import com.board.www.app.account.dto.AccountDto;
 import com.board.www.app.account.repository.AccountRepository;
 import com.board.www.app.account.utils.AccountUtils;
 import com.board.www.app.board.dto.BoardDto;
+import com.board.www.app.board.dto.BoardTestDto;
 import com.board.www.app.board.repository.BoardRepository;
 import com.board.www.app.board.utils.BoardUtils;
 import com.board.www.common.dto.WithMockAccount;
@@ -40,7 +41,7 @@ class BoardServiceTest extends BoardUtils {
         // given
         String username = accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = givenBoards(11);
-        boards.forEach(dto -> service.insert(dto));
+        boards.forEach(dto -> service.create(dto));
 
         BoardDto.KeywordType keywordType = null;
         String keyword = "";
@@ -48,8 +49,8 @@ class BoardServiceTest extends BoardUtils {
 //        Pageable pageable = PageRequest.of(1, 10); // 오류
 
         // when
-        Page<BoardDto> responseDto = service.index(keywordType, keyword, pageable);
-        List<BoardDto> contents = responseDto.getContent();
+        Page<BoardDto.ResponseIndexDto> responseDto = service.index(keywordType, keyword, pageable);
+        List<BoardDto.ResponseIndexDto> contents = responseDto.getContent();
         BoardDto content = contents.get(0);
 
         // then
@@ -66,7 +67,7 @@ class BoardServiceTest extends BoardUtils {
         // given
         String username = accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = givenBoards(11);
-        boards.forEach(dto -> service.insert(dto));
+        boards.forEach(dto -> service.create(dto));
 
         BoardDto.KeywordType keywordType = null;
         String keyword = "";
@@ -74,8 +75,8 @@ class BoardServiceTest extends BoardUtils {
 //        Pageable pageable = PageRequest.of(0, 10); // 오류
 
         // when
-        Page<BoardDto> responseDto = service.index(keywordType, keyword, pageable);
-        List<BoardDto> contents = responseDto.getContent();
+        Page<BoardDto.ResponseIndexDto> responseDto = service.index(keywordType, keyword, pageable);
+        List<BoardDto.ResponseIndexDto> contents = responseDto.getContent();
         BoardDto content = contents.get(0);
 
         // then
@@ -92,7 +93,7 @@ class BoardServiceTest extends BoardUtils {
         // given
         String username = accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = givenBoards(11);
-        boards.forEach(dto -> service.insert(dto));
+        boards.forEach(dto -> service.create(dto));
 
         BoardDto.KeywordType keywordType = null;
         String keyword = "1";
@@ -100,8 +101,8 @@ class BoardServiceTest extends BoardUtils {
         Pageable pageable = PageRequest.of(0, 10);
 
         // when
-        Page<BoardDto> responseDto = service.index(keywordType, keyword, pageable);
-        List<BoardDto> contents = responseDto.getContent();
+        Page<BoardDto.ResponseIndexDto> responseDto = service.index(keywordType, keyword, pageable);
+        List<BoardDto.ResponseIndexDto> contents = responseDto.getContent();
         BoardDto content = contents.get(0);
 
         // then
@@ -118,7 +119,7 @@ class BoardServiceTest extends BoardUtils {
         // given
         String username = accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = givenBoards(11);
-        boards.forEach(dto -> service.insert(dto));
+        boards.forEach(dto -> service.create(dto));
 
         BoardDto.KeywordType keywordType = TITLE;
         String keyword = "1";
@@ -126,8 +127,8 @@ class BoardServiceTest extends BoardUtils {
         Pageable pageable = PageRequest.of(0, 10);
 
         // when
-        Page<BoardDto> responseDto = service.index(keywordType, keyword, pageable);
-        List<BoardDto> contents = responseDto.getContent();
+        Page<BoardDto.ResponseIndexDto> responseDto = service.index(keywordType, keyword, pageable);
+        List<BoardDto.ResponseIndexDto> contents = responseDto.getContent();
         BoardDto content = contents.get(0);
 
         // then
@@ -144,12 +145,12 @@ class BoardServiceTest extends BoardUtils {
         // given
         accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = givenBoards(11);
-        boards.forEach(dto -> service.insert(dto));
+        boards.forEach(dto -> service.create(dto));
 
         Account account1 = accountRepository.save(AccountDto.create("BaekKiSeon", "BaekKiSeon1234").toEntity());
         Account account2 = accountRepository.save(AccountDto.create("KimYoungHan", "KimYoungHan1234").toEntity());
-        repository.save(BoardDto.create("titleBaek", "contentBaek").toEntity(account1));
-        repository.save(BoardDto.create("titleKim", "contentKim").toEntity(account2));
+        repository.save(new BoardTestDto.create("titleBaek", "contentBaek").toEntity(account1));
+        repository.save(new BoardTestDto.create("titleKim", "contentKim").toEntity(account2));
 
         BoardDto.KeywordType keywordType = CREATEDBY;
         String keyword = "Kang";
@@ -157,8 +158,8 @@ class BoardServiceTest extends BoardUtils {
         Pageable pageable = PageRequest.of(0, 10);
 
         // when
-        Page<BoardDto> responseDto = service.index(keywordType, keyword, pageable);
-        List<BoardDto> contents = responseDto.getContent();
+        Page<BoardDto.ResponseIndexDto> responseDto = service.index(keywordType, keyword, pageable);
+        List<BoardDto.ResponseIndexDto> contents = responseDto.getContent();
         BoardDto content = contents.get(0);
 
         // then
@@ -171,14 +172,14 @@ class BoardServiceTest extends BoardUtils {
     @Test
     @WithMockAccount
     @DisplayName("게시판 등록")
-    void insert()  {
+    void create()  {
         // given
         String username = accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = givenBoards(1);
         BoardDto dto = boards.get(0);
 
         // when
-        BoardDto boardDto = service.insert(dto);
+        BoardDto boardDto = service.create(dto);
 
         // then
         assertThat(boardDto.getTitle()).isEqualTo("title1");
