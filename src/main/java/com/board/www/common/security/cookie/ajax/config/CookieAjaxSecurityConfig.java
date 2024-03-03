@@ -69,7 +69,7 @@ public class CookieAjaxSecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        builder.authenticationProvider(ajaxAuthenticationProvider());
+//        builder.authenticationProvider(ajaxAuthenticationProvider());
         return builder.build();
     }
 
@@ -107,9 +107,6 @@ public class CookieAjaxSecurityConfig {
         requestCache.setMatchingRequestParameterName(null);
         http.requestCache(request -> request.requestCache(requestCache)); // 접근 제한 페이지 접속 후 url?continue 삭제
 
-//        http.csrf().ignoringRequestMatchers("/api/**");
-//        http.csrf().disable();
-
         http.authorizeHttpRequests()
             .requestMatchers("/boards/**").hasRole("USER")
             .requestMatchers("/api/boards").hasRole("USER")
@@ -121,8 +118,6 @@ public class CookieAjaxSecurityConfig {
             .loginProcessingUrl("/api/login");
 
         http.addFilterBefore(ajaxLoginProcessingFilter(http), UsernamePasswordAuthenticationFilter.class); // 정상
-//        http.addFilterAt(ajaxLoginProcessingFilterAt(http), UsernamePasswordAuthenticationFilter.class);
-//        http.addFilterAfter(ajaxLoginProcessingFilter(http), UsernamePasswordAuthenticationFilter.class);
 
         http.exceptionHandling()
             .authenticationEntryPoint(ajaxAuthenticationEntryPoint())

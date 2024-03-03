@@ -7,17 +7,16 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-    properties:
-      hibernate:
-#        show_sql: true
-#        format_sql: true
-        show_sql: false
-        format_sql: false
     open-in-view: false
     defer-datasource-initialization: false
+    # 로그
+#    properties:
+#      hibernate:
+#        show_sql: false
+#        format_sql: false
 
-logging:
-  level:
-    com.board.www: DEBUG
-    org.springframework.security.web: DEBUG
-    org.hibernate.type.descriptor.sql: TRACE
+# 로그 -> 파라미터 값이 여러개 나오는 불편함 -> p6spy 변경
+#logging:
+#  level:
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.orm.jdbc.bind: TRACE
