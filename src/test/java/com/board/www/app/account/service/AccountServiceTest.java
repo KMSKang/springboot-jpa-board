@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class AccountServiceTest extends AccountUtils {
     @Autowired private PasswordEncoder passwordEncoder;
 
-    @Autowired private AccountService service;
+    @Autowired private AccountServiceImpl service;
 
     @Test
     @DisplayName("회원 등록")

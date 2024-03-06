@@ -10,3 +10,4 @@ table, td, th { border: 1px solid }
 table td { height: 23px }
 table td.left { padding-left: 10px }
 table td.center { text-align: center }
+a { color: black }

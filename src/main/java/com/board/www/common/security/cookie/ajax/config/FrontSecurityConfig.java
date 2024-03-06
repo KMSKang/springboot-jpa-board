@@ -91,10 +91,10 @@
 //
 ////그러다보니,RememberMeAuthenticationProvider에서 authenticate 할 때 hashCode 값이 맞지 않아 계속 쿠키가 삭제되고,자동 로그인이 되지 않습니다.
 ////public Authentication authenticate(Authentication authentication)throws AuthenticationException{
-////        if(!supports(authentication.getClass())){
+////        if (!supports(authentication.getClass())){
 ////        return null;
 ////        }
-////        if(this.key.hashCode()!=((RememberMeAuthenticationToken)authentication).getKeyHash()){
+////        if (this.key.hashCode()!=((RememberMeAuthenticationToken)authentication).getKeyHash()){
 ////        throw new BadCredentialsException(messages.getMessage("RememberMeAuthenticationProvider.incorrectKey",
 ////        "The presented RememberMeAuthenticationToken does not contain the expected key"));
 ////        }

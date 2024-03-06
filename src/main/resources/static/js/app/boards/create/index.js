@@ -1,16 +1,21 @@
-const username = document.getElementById('username')
-const password = document.getElementById('password')
+const title = document.getElementById('title') // 제목
+const content = document.getElementById('content') // 내용
 const btnSubmit = document.getElementById('btn-submit')
 
 btnSubmit.addEventListener('click', function () {
     $.LoadingOverlay('show')
 
     let params = {
-        'username': username.value,
-        'password': password.value
+        'title': title.value,
+        'content': content.value,
+        'isScret': document.querySelector('input[name="isScret"]:checked').value
     }
 
-    axios.post('/api/accounts', params, {
+    let formData = new FormData()
+    formData.append('dto', new Blob([JSON.stringify(params)], { type: 'application/json' }))
+    formData.append('file', file.files[0])
+
+    axios.post('/api/boards', formData, {
         header: { header, token },
         params: { '_csrf': csrf }
     }).then((response) => {
@@ -23,8 +28,8 @@ btnSubmit.addEventListener('click', function () {
         // console.log(message)
         // console.log(data)
 
-        alert('가입 완료')
-        windowHistoryBack()
+        alert('등록되었습니다')
+        windowLocationReload()
     }).catch((error) => {
         console.log(error)
         const responseData = error.response.data

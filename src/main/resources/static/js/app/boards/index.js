@@ -1,5 +1,3 @@
-const title = document.getElementById('title') // 제목
-const content = document.getElementById('content') // 내용
 const file = document.getElementById('file') // 파일
 const keywordType = document.getElementById('keywordType') // 검색
 const keyword = document.getElementById('keyword') // 내용
@@ -11,7 +9,6 @@ const btnArea = document.getElementById('btn-area')
 const btnGroup = document.getElementById('btn-group') // 버튼 영역
 const btnBack = document.getElementById('btn-back') // 버튼) 이전
 const btnNext = document.getElementById('btn-next') // 버튼) 다음
-const btnSubmit = document.getElementById('btn-submit') // 버튼) 등록
 
 let page = 0
 let size = 10
@@ -36,8 +33,12 @@ function load() {
         params: { _csrf: csrf }
     }).then((response) => {
         const responseData = response.data
+        const code = responseData.code
+        const message = responseData.message
         const data = responseData.data
         // console.log(responseData)
+        // console.log(code)
+        // console.log(message)
         // console.log(data)
 
         add(data)
@@ -107,7 +108,7 @@ function create(obj) {
 
     return `<tr>
                 <td class="center">${id}</td>
-                <td class="left">${title}</td>
+                <td class="left"><a href="#" onclick="windowOpen('/boards/${id}')">${title}</a></td>
                 <td class="center">${createdBy}</td>
                 <td class="center">${createdAt}</td>
                 <td class="center">${view}</td>
@@ -164,51 +165,4 @@ btnReset.addEventListener('click', function () {
     page = 0
     size = 10
     load()
-})
-
-btnSubmit.addEventListener('click', function () {
-    $.LoadingOverlay('show')
-
-    let params = {
-        'title': title.value,
-        'content': content.value
-    }
-
-    let formData = new FormData()
-    formData.append('dto', new Blob([JSON.stringify(params)], { type: 'application/json' }))
-    formData.append('file', file.files[0])
-
-    axios.post('/api/boards', formData, {
-        header: { header, token },
-        params: { '_csrf': csrf }
-    }).then((response) => {
-        const responseData = response.data
-        const code = responseData.code
-        const message = responseData.message
-        const data = responseData.data
-        // console.log(responseData)
-        // console.log(code)
-        // console.log(message)
-        // console.log(data)
-
-        title.value = ''
-        content.value = ''
-        file.value = ''
-
-        page = 0
-        load()
-    }).catch((error) => {
-        console.log(error)
-        const responseData = error.response.data
-        const code = responseData.code
-        const message = responseData.message
-        const data = responseData.data
-        console.log(responseData)
-        console.log(code)
-        console.log(message)
-        console.log(data)
-        alertError(message)
-    }).finally(() => {
-        $.LoadingOverlay('hide')
-    })
 })

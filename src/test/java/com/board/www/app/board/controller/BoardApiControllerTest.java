@@ -33,12 +33,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK) // extends MyRestDoc
-public class BoardControllerTest extends MyRestDoc {
+public class BoardApiControllerTest extends MyRestDoc {
     @Autowired private ObjectMapper objectMapper;
     @Autowired private BoardUtils boardUtils;
     @Autowired private AccountUtils accountUtils;
 
-    @Autowired private BoardService service;
+    @Autowired private BoardService boardService;
     @Autowired private AccountRepository accountRepository;
 
     @Test
@@ -48,7 +48,7 @@ public class BoardControllerTest extends MyRestDoc {
         // given
         accountRepository.save(accountUtils.givenAccount()).getUsername();
         List<BoardDto> boards = boardUtils.givenBoards(11);
-        boards.forEach(dto -> service.create(dto));
+        boards.forEach(dto -> boardService.create(dto));
 
         BoardDto.KeywordType keywordType = null;
         String keyword = "";

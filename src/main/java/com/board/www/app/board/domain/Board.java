@@ -34,6 +34,11 @@ public class Board extends BaseEntity {
     @Column
     private int view = 0; // 조회수
 
+    @NotNull(message = "비밀글 여부를 입력해 주세요")
+    @Builder.Default
+    @Column
+    private Boolean isScret = FALSE; // 비밀글 여부
+
     @NotNull(message = "삭제 여부를 입력해 주세요")
     @Builder.Default
     @Column

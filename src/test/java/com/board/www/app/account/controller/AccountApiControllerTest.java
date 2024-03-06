@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK) // extends MyRestDoc
-class AccountControllerTest extends MyRestDoc {
+class AccountApiControllerTest extends MyRestDoc {
     @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private ObjectMapper objectMapper;
     @Autowired private AccountUtils accountUtils;

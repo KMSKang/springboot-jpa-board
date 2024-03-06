@@ -1,10 +1,7 @@
 package com.board.www.common.security.cookie.ajax.provider;
 
-import com.board.www.common.exception.dto.Exception500;
 import com.board.www.common.security.cookie.common.dto.AccountContext;
-import com.board.www.common.utils.CommonUtils;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

@@ -10,8 +10,21 @@ function windowLocationHref(url) {
     window.location.href = url
 }
 
+function windowOpen(url) {
+    window.open(url, '_blank')
+
+}
+
 function windowHistoryBack() {
     window.history.back()
+}
+
+function windowLocationReload() {
+    window.location.reload()
+}
+
+function windowClose() {
+    window.close()
 }
 
 function alertError(data) {

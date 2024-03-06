@@ -1,4 +1,4 @@
-package com.board.www.common.utils;
+package com.board.www.common.util;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

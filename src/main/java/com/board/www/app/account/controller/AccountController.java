@@ -1,6 +1,6 @@
 package com.board.www.app.account.controller;
 
-import com.board.www.app.account.service.AccountService;
+import com.board.www.app.account.service.AccountServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @RequestMapping("/accounts")
 public class AccountController {
-    private final AccountService service;
+    private final AccountServiceImpl service;
 
     @GetMapping
     public String index() {

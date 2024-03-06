@@ -5,3 +5,11 @@ body.boards div.footer_area select { height: 21px }
 body.boards div.footer_area div.btn_area { display: flex; align-items: center; justify-content: center }
 body.boards div.footer_area div.btn_area button { width: 23px; height: 21px; padding: 0 }
 body.boards div.footer_area div.btn_area button.active { background: transparent }
+
+
+body.boards_form div.area { display: flex; margin: 20px 0 }
+body.boards_form div.area > label { width: 100px }
+body.boards_form div.area.isScret label.radio { display: flex; align-items: center; width: 50px; cursor: pointer }
+body.boards_form div.area.isScret label.radio:last-child { margin-left: 10px }
+body.boards_form div.area.isScret label.radio input[type=radio] { margin-top: -3px }
+

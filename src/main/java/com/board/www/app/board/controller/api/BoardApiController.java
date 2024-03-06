@@ -26,4 +26,9 @@ public class BoardApiController {
                                   , @RequestPart(required = false) MultipartFile file) {
         return ResponseEntity.ok(new ResponseDto<>(service.create(dto)));
     }
+
+    @GetMapping("/detail")
+    public ResponseEntity<?> detail(Long id) {
+        return ResponseEntity.ok(new ResponseDto<>(service.detail(id)));
+    }
 }
